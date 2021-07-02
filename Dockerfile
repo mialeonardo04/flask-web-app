@@ -1,8 +1,5 @@
 FROM ubuntu:18.04
-LABEL maintainer="Leonardo <ignasiusleonardo@gmail.com>"
 RUN apt-get update -y && apt-get install -y python-pip python-dev
-COPY ./requirements.txt /app/requirements.txt
-WORKDIR /app
 RUN pip install -r requirements.txt
-COPY . /app
-CMD [ "python", "./app.py" ]
+COPY app.py /opt/
+CMD [ "FLASK_APP=/opt/app.py", "flask", "run", "--host=0.0.0.0", "--port=8080" ]
